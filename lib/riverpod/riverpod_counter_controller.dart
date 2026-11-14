@@ -74,15 +74,14 @@ class RiverpodCounterController extends StateNotifier<RiverpodCounterState>
     state = state.copyWith(count: 0, elapsedSeconds: 0, isRunning: false);
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState lifecycleState) {
-    state = state.copyWith(lifecycleState: lifecycleState);
+ @override
+void didChangeAppLifecycleState(AppLifecycleState state) {
+  this.state = this.state.copyWith(lifecycleState: state);
 
-    // Pause the timer whenever the app is no longer in the foreground.
-    if (lifecycleState != AppLifecycleState.resumed) {
-      pauseTimer();
-    }
+  if (state != AppLifecycleState.resumed) {
+    pauseTimer();
   }
+}
 
   @override
   void dispose() {
